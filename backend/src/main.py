@@ -17,4 +17,4 @@ if len(exams) == 0:
 
 print('### Exams:')
 for exam in exams:
-  print(f('({exam.id}) {exam.title} - {exam.description}'))
+  print(f'({exam.id}) {exam.title} - {exam.description}')
