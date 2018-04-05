@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam, ExamSchema
+from .auth import AuthError, requires_auth
 
 # creating the  flask application
 app = Flask(__name__)
@@ -26,6 +27,7 @@ def get_exams():
   return jsonify(exams.data)
 
 @app.route('/exams', methods=['POST'])
+@requires_auth
 def add_exam():
   # mount exam object
   posted_exam = ExamSchema(only=('title', 'description')).load(request.get_json())
@@ -52,8 +54,9 @@ def add_dummy_exam():
     session.close()
   return redirect('/exams')
 
-    
 
-# print('### Exams:')
-# for exam in exams:
-#   print(f'({exam.id}) {exam.title} - {exam.description}')
+@app.errorhandler(AuthError)
+def handle_auth_eror(ex):
+  response = jsonify(ex.error)
+  response.status_code = ex.status_code
+  return response
