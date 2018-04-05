@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 
 db_url = "localhost:5432"
 db_name = "online-exam"
-db_user = "postgress"
+db_user = "postgres"
 db_password = "0NLIN3-ex4m"
 engine = create_engine(f'postgresql://{db_user}:{db_password}@{db_url}/{db_name}')
 Session = sessionmaker(bind=engine)
@@ -22,5 +22,4 @@ class Entity():
     self.created_at = datetime.now()
     self.updated_at = datetime.now()
     self.last_updated_by = created_by
-    
-  
+
