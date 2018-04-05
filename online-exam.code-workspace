@@ -1,0 +1,10 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.pythonPath": "${workspaceFolder}/../backend-7VqO7-Oh/Scripts/python"
+  }
+}
