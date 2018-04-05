@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, redirect
 from flask_cors import CORS
 
 from .entities.entity import Session, engine, Base
@@ -40,17 +40,19 @@ def add_exam():
   session.close()
   return jsonify(new_exam), 201
 
-# session = Session()
+@app.route('/add-dummy-exam')
+def add_dummy_exam():
+  session = Session()  
+  exams = session.query(Exam).all()
 
-# exams = session.query(Exam).all()
+  if len(exams) == 0:
+    python_exam = Exam("SQLAlchemy Exam", "Test your knowledge about SQLAlchemy", "script")
+    session.add(python_exam)
+    session.commit()
+    session.close()
+  return redirect('/exams')
 
-# if len(exams) == 0:
-#   python_exam = Exam("SQLAlchemy Exam", "Test your knowledge about SQLAlchemy", "script")
-#   session.add(python_exam)
-#   session.commit()
-#   session.close()
-
-#   exams = session.query(Exam).all()
+    
 
 # print('### Exams:')
 # for exam in exams:

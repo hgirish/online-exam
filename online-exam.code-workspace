@@ -5,6 +5,6 @@
     }
   ],
   "settings": {
-    "python.pythonPath": "${workspaceFolder}/../backend-7VqO7-Oh/Scripts/python"
+    "python.pythonPath": "${workspaceFolder}/backend/.venv/Scripts/python"
   }
 }
