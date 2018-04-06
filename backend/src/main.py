@@ -3,7 +3,7 @@ from flask_cors import CORS
 
 from .entities.entity import Session, engine, Base
 from .entities.exam import Exam, ExamSchema
-from .auth import AuthError, requires_auth
+from .auth import AuthError, requires_auth, requires_role
 
 # creating the  flask application
 app = Flask(__name__)
@@ -11,6 +11,9 @@ CORS(app)
 
 # if needed, generate database schema
 Base.metadata.create_all(engine)
+@app.route('/')
+def dummy():
+  return 'Hello World!'
 
 @app.route('/exams')
 def get_exams():
@@ -44,7 +47,7 @@ def add_exam():
 
 @app.route('/add-dummy-exam')
 def add_dummy_exam():
-  session = Session()  
+  session = Session()
   exams = session.query(Exam).all()
 
   if len(exams) == 0:
