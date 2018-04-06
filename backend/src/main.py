@@ -54,6 +54,15 @@ def add_dummy_exam():
     session.close()
   return redirect('/exams')
 
+@app.route('/exams/<examId>', methods=['DELETE'])
+@requires_role('admin')
+def delete_exam(examId):
+  session = Session()
+  exam = session.query(Exam).filter_by(id=examId).first()
+  session.delete(exam)
+  session.commit()
+  session.close()
+  return '', 201
 
 @app.errorhandler(AuthError)
 def handle_auth_eror(ex):

@@ -93,3 +93,24 @@ def requires_auth(f):
       'description': 'Unable to find the appropriate key'
     },400)
   return decorated
+
+def requires_role(required_role):
+  def decorator(f):
+    def wrapper(**args):
+      token = get_token_auth_header()
+      unverified_claims = jwt.get_unverified_claims(token)
+
+      namespace_identifier = 'https://online-exam.gmh.com/roles'
+
+      if unverified_claims.get(namespace_identifier):
+        roles = unverified_claims[namespace_identifier]
+        for role in roles:
+          if role == required_role:
+            return f(**args)
+      raise AuthError({
+        'code': 'insufficient_roles',
+        'description': 'You do not have the roles neeeded to perform this operation.'
+      },401)
+
+    return wrapper
+  return decorator
