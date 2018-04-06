@@ -6,6 +6,6 @@
 
 ```python
 pipenv --rm # remove existing venv
-$env:PIPENV_VENV_IN_PROJCT=1
+$env:PIPENV_VENV_IN_PROJECT=1
 pipenv install
 ```
