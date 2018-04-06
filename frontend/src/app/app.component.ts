@@ -1,25 +1,23 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { ExamsApiService } from './exams/exams-api.service';
-import { Exam } from './exams/exam.model';
+import * as Auth0 from 'auth0-web';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, OnDestroy {
-  title = 'app';
-  examsListSubs: Subscription;
-  examsList: Exam[];
+export class AppComponent implements OnInit {
+  authenticated = false;
 
-  constructor(private examsApi: ExamsApiService) {}
+  signIn = Auth0.signIn;
+  signOut = Auth0.signOut;
+  getProfile = Auth0.getProfile;
+
+  constructor() {}
 
   ngOnInit() {
-    this.examsListSubs = this.examsApi.getExams().subscribe(res => {
-      this.examsList = res;
-    }, console.error);
+    const self = this;
+    Auth0.subscribe(authenticated => (self.authenticated = authenticated));
   }
-
-  ngOnDestroy() {}
 }

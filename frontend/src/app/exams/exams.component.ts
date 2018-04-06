@@ -16,10 +16,6 @@ export class ExamsComponent implements OnInit, OnDestroy {
 
   constructor(private examsApi: ExamsApiService) {}
 
-  signIn = Auth0.signIn;
-  signOut = Auth0.signOut;
-  getProfile = Auth0.getProfile;
-
   ngOnInit() {
     this.examsListSub = this.examsApi.getExams().subscribe(res => {
       this.examsList = res;

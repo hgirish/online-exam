@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatToolbarModule, MatButtonModule } from '@angular/material';
+
 import { AppComponent } from './app.component';
 import { ExamsApiService } from './exams/exams-api.service';
 import { ExamsComponent } from './exams/exams.component';
@@ -22,7 +25,14 @@ const appRoutes: Routes = [
     ExamFormComponent,
     CallbackComponent
   ],
-  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
+    NoopAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule
+  ],
   providers: [ExamsApiService],
   bootstrap: [AppComponent]
 })
