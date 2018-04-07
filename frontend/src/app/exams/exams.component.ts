@@ -27,4 +27,20 @@ export class ExamsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.examsListSub.unsubscribe();
   }
+
+  delete(examId: number) {
+    this.examsApi.deleteExam(examId).subscribe(() => {
+      this.examsListSub = this.examsApi.getExams().subscribe(res => {
+        this.examsList = res;
+      }, console.error);
+    }, console.error);
+  }
+
+  isAdmin() {
+    if (!Auth0.isAuthenticated()) {
+      return false;
+    }
+    const roles = Auth0.getProfile()['https://online-exam.gmh.com/roles'];
+    return roles.includes('admin');
+  }
 }

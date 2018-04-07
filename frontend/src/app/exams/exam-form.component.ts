@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class ExamFormComponent implements OnInit {
   exam = {
     title: '',
-    description: ''
+    description: '',
+    long_description: ''
   };
 
   constructor(private examsApi: ExamsApiService, private router: Router) {}
@@ -23,6 +24,10 @@ export class ExamFormComponent implements OnInit {
   }
   updateDescription(event: any) {
     this.exam.description = event.target.value;
+  }
+
+  updateLongDescription(event: any) {
+    this.exam.long_description = event.target.value;
   }
 
   saveExam() {
