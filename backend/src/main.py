@@ -33,7 +33,7 @@ def get_exams():
 @requires_auth
 def add_exam():
   # mount exam object
-  posted_exam = ExamSchema(only=('title', 'description')).load(request.get_json())
+  posted_exam = ExamSchema(only=('title', 'description', 'long_description')).load(request.get_json())
 
   exam = Exam(**posted_exam.data, created_by="HTTP post request")
 
